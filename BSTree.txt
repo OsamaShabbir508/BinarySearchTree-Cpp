@@ -1,0 +1,130 @@
+
+#include "stdafx.h"
+#include <iostream>
+#include<string>
+using namespace std;
+class Node
+{
+public:	int data;
+		Node *leftchild, *rchild;
+	Node(int x)
+	{	data = x;
+		leftchild,rchild = NULL;
+	}
+	Node() {
+
+	}
+};
+class BinarySTree
+{
+public:
+	Node* root = NULL;
+	void Insert(int x)
+	{
+		Node* node, *temp = NULL; Node *parent = NULL;
+		if (root==NULL)
+		{
+			node = new Node;
+			node->data = x;
+			node->leftchild, node->rchild = NULL;
+			root = node;
+		}
+		else
+		{   
+		temp = root;
+		while (temp!=NULL)
+		{
+			if (temp->data==x)
+			{
+				cout << " The Element Already Present " << endl;
+				return;
+			}
+			if (temp->data<x)
+			{
+				parent = temp;
+				temp = temp->rchild;
+			}
+			else if (temp->data>x)
+			{
+				parent = temp;
+				temp = temp->leftchild;
+			}
+		}
+		if (parent->data<x)
+		{
+			node = new Node;
+			node->data = x;
+			node->leftchild, node->rchild = NULL;
+			parent->rchild = node;
+		}
+		else
+		{
+			node = new Node(x);
+			node->data = x;
+			node->leftchild, node->rchild = NULL;
+			parent->leftchild = node;
+		}
+	}
+}
+
+	Node* Search(int x)
+	{
+		Node*current,*parent;
+		current = root;
+		parent = NULL;
+		while (current != NULL)
+		{
+			parent = current;
+			if (current->data == x)
+			{
+				cout << " The Element is Present " << endl;
+				return current;
+			}
+			if (current->data<x)
+			{
+				current = current->rchild;
+			}
+			else if (current->data>x)
+			{
+				current = current->leftchild;
+			}
+
+		}
+		return NULL;
+	}
+	void InOrderDisplay(Node *q)
+	{
+		if (q!=NULL)
+		{
+			InOrderDisplay(q->leftchild);
+			cout << q->data<<" ";
+			InOrderDisplay(q->rchild);
+
+
+		}
+	
+	}
+
+
+};
+
+int main()
+{
+	BinarySTree bn;
+	int x = 0;
+	int count;
+	
+	bn.Insert(10);
+	bn.Insert(5);
+	bn.Insert(20);
+	bn.Insert(8);
+	bn.Insert(30);
+	bn.InOrderDisplay(bn.root);
+	//cout << bn.Search(20)->data << endl; 
+	//if (bn.Search(123) == NULL) cout << "No element presetnt" << endl;
+	//else
+	//{
+	//	cout << bn.Search(20)->data << endl;
+	//}
+    return 0;
+}
